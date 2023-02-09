@@ -2,28 +2,33 @@ const { invoke } = window.__TAURI__.tauri;
 
 let docker_images_text = document.querySelector("#docker-images");
 
-async function fetch_docker_images() {
+const fetch_docker_images = async() => {
   // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-  docker_images_text.textContent = await invoke("greet", {});
+  const localResult = await invoke("greet", {});
+  console.log(localResult)
+  return localResult
 }
 
-function LikeButton() {
-  const [liked, setLiked] = React.useState();
+function dockerTable() {
+  const [dockerData, set_dockerData] = React.useState(null);
 
   return React.createElement(
-    'button',
-    {
-      onClick: () => fetch_docker_images(),
-    },
-    'Get Docker images',
+    "div",
+    null,
     React.createElement(
-      'h1',
-      null,
-      'Welcome!',
+      'button',
+      {
+        onClick: () => { 
+          fetch_docker_images().then(result=>{
+            set_dockerData(result);
+          })
+        }
+      },
+      'Get Docker images'
     ),
   );
 }
 
 const rootNode = document.getElementById('docker-container-root');
 const root = ReactDOM.createRoot(rootNode);
-root.render(React.createElement(LikeButton));
+root.render(React.createElement(dockerTable));

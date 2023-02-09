@@ -17,7 +17,7 @@ fn greet() -> String {
     } else {
         Command::new("sh")
             .arg("-c")
-            .arg("docker image ls --format '{{json .}}'")
+            .arg("docker image ls --format '{{json .}}' | jq --slurp")
             .output()
             .expect("failed to execute process")
     };
