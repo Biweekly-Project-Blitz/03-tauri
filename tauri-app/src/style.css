@@ -39,6 +39,14 @@
   justify-content: center;
 }
 
+th {
+  padding: 15px;
+}
+
+td {
+  padding: 5px 10px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
